@@ -31,3 +31,5 @@ D:\Workspaces\Devolops\WebAPI\MapperApp\obj\Debug\net7.0\refint\MapperApp.dll
 D:\Workspaces\Devolops\WebAPI\MapperApp\obj\Debug\net7.0\MapperApp.pdb
 D:\Workspaces\Devolops\WebAPI\MapperApp\obj\Debug\net7.0\MapperApp.genruntimeconfig.cache
 D:\Workspaces\Devolops\WebAPI\MapperApp\obj\Debug\net7.0\ref\MapperApp.dll
+D:\Workspaces\Devolops\WebAPI\MapperApp\bin\Debug\net7.0\AutoMapper.dll
+D:\Workspaces\Devolops\WebAPI\MapperApp\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
