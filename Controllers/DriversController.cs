@@ -1,4 +1,6 @@
+using AutoMapper;
 using MapperApp.Models;
+using MapperApp.Models.DTOs.Incoming;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapperApp.Controllers;
@@ -8,11 +10,16 @@ namespace MapperApp.Controllers;
 public class DriversController : ControllerBase
 {
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly IMapper _mapper;
+
+    // In-memory
     private static List<Driver> drivers = new();
 
-    public DriversController(ILogger<WeatherForecastController> logger)
+
+    public DriversController(ILogger<WeatherForecastController> logger, IMapper mapper)
     {
         _logger = logger;
+        _mapper = mapper;
     }
 
     // Get all drivers
@@ -23,7 +30,7 @@ public class DriversController : ControllerBase
         return Ok(allDrivers);
     }
 
-    
+
     [HttpGet]
     [Route("GetDriver")]
     public IActionResult GetDriver(Guid id)
@@ -39,12 +46,14 @@ public class DriversController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateDriver(Driver data)
+    public IActionResult CreateDriver(DriverForCreationDto data)
     {
         if (ModelState.IsValid)
         {
-            drivers.Add(data);
-            return CreatedAtAction("GetDriver", new { data.Id }, data);
+            var _driver = _mapper.Map<Driver>(data);
+
+            drivers.Add(_driver);
+            return CreatedAtAction("GetDriver", new { _driver.Id }, _driver);
         }
 
         return new JsonResult("Something went wrong") { StatusCode = 500 };
