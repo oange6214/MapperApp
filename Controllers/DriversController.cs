@@ -1,6 +1,7 @@
 using AutoMapper;
 using MapperApp.Models;
 using MapperApp.Models.DTOs.Incoming;
+using MapperApp.Models.DTOs.Outgoing;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapperApp.Controllers;
@@ -27,9 +28,10 @@ public class DriversController : ControllerBase
     public IActionResult GetDrivers()
     {
         var allDrivers = drivers.Where(x => x.Status == 1).ToList();
-        return Ok(allDrivers);
-    }
 
+        var driver = _mapper.Map<IEnumerable<DriverDto>>(allDrivers);
+        return Ok(driver);
+    }
 
     [HttpGet]
     [Route("GetDriver")]
@@ -53,7 +55,9 @@ public class DriversController : ControllerBase
             var _driver = _mapper.Map<Driver>(data);
 
             drivers.Add(_driver);
-            return CreatedAtAction("GetDriver", new { _driver.Id }, _driver);
+
+            var newDriver = _mapper.Map<DriverDto>(_driver);
+            return CreatedAtAction("GetDriver", new { _driver.Id }, newDriver);
         }
 
         return new JsonResult("Something went wrong") { StatusCode = 500 };
